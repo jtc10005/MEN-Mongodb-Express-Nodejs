@@ -1,7 +1,7 @@
 {
   "name": "MEN-Mongodb-Express-Nodejs",
   "version": "1.0.0",
-  "description": "using [https://zellwk.com/blog/crud-express-mongodb/](https://zellwk.com/blog/crud-express-mongodb/)",
+  "description": "CRUD operations using MongoDB (MLAB) Exoress and nodejs following instructions here [https://zellwk.com/blog/crud-express-mongodb/](https://zellwk.com/blog/crud-express-mongodb/)",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.js"
