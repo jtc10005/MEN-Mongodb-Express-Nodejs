@@ -1,9 +1,18 @@
+const fetch_poly = require('whatwg-fetch');
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
 
+var path = require('path');
+
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, '/public')));
+app.use(bodyParser.json())
+
+app.set('view engine', 'ejs') //setting ejs as the view engine
+app.set("views", path.join(__dirname, '/views')); //set location of views directory for serving
 
 var mgdb = "mongodb://MEN_TEST:MEN_TEST!@ds139899.mlab.com:39899/mongo_node";
 console.log('root: ' + __dirname);
@@ -20,11 +29,11 @@ MongoClient.connect(mgdb, (err, database) => {
 
 app.get('/', (req, res) => {
     console.log('get request');
-    var cursor = db.collection('quotes').find().toArray(function (err, results) {
-        console.log(results)
-        // send HTML file populated with quotes here
+    db.collection('quotes').find().toArray((err, result) => {
+        if (err) return console.log(err)
+        // renders index.ejs
+        res.render('index.ejs', { quotes: result })
     })
-    res.sendFile(__dirname + '/index.html');
 })
 
 app.post('/quotes', (req, res) => {
@@ -37,3 +46,23 @@ app.post('/quotes', (req, res) => {
         res.redirect('/')
     })
 });
+
+
+app.put('/quotes', (req, res) => {
+    console.log('Put recieved', req.body);
+
+    db.collection('quotes')
+        .findOneAndUpdate({ name: 'yoda' }, {
+            $set: {
+                name: req.body.name,
+                quote: req.body.quote
+            }
+        }, {
+            sort: { _id: -1 },
+            upsert: true
+        }, (err, result) => {
+            if (err) return res.send(err)
+            res.send(result)
+        })
+})
+
