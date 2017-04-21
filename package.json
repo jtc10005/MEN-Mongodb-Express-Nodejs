@@ -1,0 +1,28 @@
+{
+  "name": "MEN-Mongodb-Express-Nodejs",
+  "version": "1.0.0",
+  "description": "using [https://zellwk.com/blog/crud-express-mongodb/](https://zellwk.com/blog/crud-express-mongodb/)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtc10005/MEN-Mongodb-Express-Nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jtc10005/MEN-Mongodb-Express-Nodejs/issues"
+  },
+  "homepage": "https://github.com/jtc10005/MEN-Mongodb-Express-Nodejs#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.26"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
