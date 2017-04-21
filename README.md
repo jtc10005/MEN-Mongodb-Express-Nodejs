@@ -2,6 +2,7 @@
 
 CRUD operations using MongoDB (MLAB) Exoress and nodejs following instructions here [https://zellwk.com/blog/crud-express-mongodb/](https://zellwk.com/blog/crud-express-mongodb/)
 
+requires set up @ [https://mlab.com/welcome/](https://mlab.com/welcome/)
 
 ## to use
 - run 'npm install' (or 'yarn')
