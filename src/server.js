@@ -51,6 +51,25 @@ app.get('/json', (req, res) => {
     })
 })
 
+app.get('/json2', (req, res) => {
+    console.log('get request');
+    db.collection('quotes').find().toArray((err, result) => {
+        if (err) {
+            //if error log error to console and respone error in json
+            console.log(err);
+            res.status(400).json(err);
+        }
+        console.log('collection', result);
+        res.status(200).json(result);
+        // res.writeHead(200, {
+        //     'Content-Type': 'text/json'
+        // });
+        // res.end(JSON.stringify(result));
+    });
+})
+
+
+
 app.post('/quotes', (req, res) => {
     console.log('Post recieved', req.body);
 
