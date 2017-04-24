@@ -7,7 +7,9 @@ const MongoClient = require('mongodb').MongoClient
 
 var path = require('path');
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.json())
 
@@ -32,7 +34,20 @@ app.get('/', (req, res) => {
     db.collection('quotes').find().toArray((err, result) => {
         if (err) return console.log(err)
         // renders index.ejs
-        res.render('index.ejs', { quotes: result })
+        res.render('index.ejs', {
+            quotes: result
+        })
+    })
+})
+
+app.get('/json', (req, res) => {
+    console.log('get request');
+    db.collection('quotes').find().toArray((err, result) => {
+        if (err) return console.log(err)
+        console.log('collection', result);
+        res.json({
+            quotes: result
+        });
     })
 })
 
@@ -52,13 +67,17 @@ app.put('/quotes', (req, res) => {
     console.log('Put recieved', req.body);
 
     db.collection('quotes')
-        .findOneAndUpdate({ name: 'yoda' }, {
+        .findOneAndUpdate({
+            name: 'yoda'
+        }, {
             $set: {
                 name: req.body.name,
                 quote: req.body.quote
             }
         }, {
-            sort: { _id: -1 },
+            sort: {
+                _id: -1
+            },
             upsert: true
         }, (err, result) => {
             if (err) return res.send(err)
@@ -69,7 +88,9 @@ app.put('/quotes', (req, res) => {
 
 app.delete('/quotes', (req, res) => {
     console.log('delete recieved', req.body.name);
-    db.collection('quotes').findOneAndDelete({ name: req.body.name },
+    db.collection('quotes').findOneAndDelete({
+            name: req.body.name
+        },
         (err, result) => {
             console.log('got here')
             if (err) return res.send(500, err)
